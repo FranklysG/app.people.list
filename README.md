@@ -16,6 +16,7 @@ yarn test
 ```
 
 #### Obvious remarks:
+- It's not mandatory, but it's interesting to have the backend running before running the frontend
 - It is highly necessary that both the backend and the frontend are running!
 
 ##### A Tip
