@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { CheckCircleIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { ArrowTrendingUpIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 import moment from "moment";
-import { toast } from "react-toastify";
-import { TailSpin } from "react-loader-spinner";
 
 import App from "../layouts/app";
 import Navbar from "../layouts/navbar";
@@ -13,7 +11,6 @@ import { useGlobal } from "../hooks/useGlobal";
 import { useUser } from "../hooks/useUser";
 import { useCompany } from "../hooks/useCompany";
 
-import Badge from "../components/badge";
 import Panel from "../components/panel";
 
 import User from "./user";
@@ -97,7 +94,7 @@ export default function Dashboard() {
               </div>
               <div className="min-w-0 flex-1 mt-5 md:mt-0">
                 {/* Button Plus */}
-                <div className="flex gap-3 justify-center md:justify-end ">
+                <div className="hidden md:flex gap-3 justify-center md:justify-end ">
                   <Select
                     defaultValue={"peoples"}
                     handleOnChange={(e) => setViewTable(e.target.value)}
@@ -144,45 +141,8 @@ export default function Dashboard() {
         </div>
 
         <div className="mt-8">
-          <h2 className="mt-8 px-4 text-xl font-bold leading-6 text-gray-900 sm:px-6 lg:px-8">
-            Últimas atividades
-          </h2>
-
-          {/* Activity list (smallest breakpoint only) */}
-
-          <div className="shadow sm:hidden">
-            <ul
-              role="list"
-              className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden"
-            >
-              {forms?.map((item) => (
-                <li key={item.uuid}>
-                  <a
-                    href={`api/generate/${item.uuid}`}
-                    className="block bg-white px-4 py-4 hover:bg-gray-50"
-                  >
-                    <div className="grid gap-2">
-                      <span className="flex justify-between">
-                        <h4 className="text-gray-600">{item.title}</h4>
-                        <Badge
-                          className="text-2xl"
-                          name={item.status}
-                          type={item.type}
-                          status={item.status}
-                        />
-                      </span>
-                      <span className="flex justify-start">
-                        <h2 className="font-semibold text-lg">{item.author}</h2>
-                      </span>
-                      <span className="flex justify-between">
-                        <h4 className="text-gray-600">{item.date}</h4>
-                        <ChevronRightIcon className="h-6 w-6" />
-                      </span>
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="shadow sm:hidden px-4 flex justify-center">
+            <h4 className="py-4 text-gray-400 text-center">Desculpe, mas por enquanto não temos viasualização mobile</h4>
           </div>
 
           {/* Activity table (small breakpoint and up) */}
