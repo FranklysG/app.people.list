@@ -96,13 +96,14 @@ export default function Dashboard() {
                 {/* Button Plus */}
                 <div className="hidden md:flex gap-3 justify-center md:justify-end ">
                   <Select
+                    id="select-people-or-company"
                     defaultValue={"peoples"}
                     handleOnChange={(e) => setViewTable(e.target.value)}
                   >
-                    <option key={"peoples"} value={"peoples"}>
+                    <option id={"peoples"} value={"peoples"}>
                       Pessoas
                     </option>
-                    <option key={"companies"} value={"companies"}>
+                    <option id={"companies"} value={"companies"}>
                       Companias
                     </option>
                   </Select>

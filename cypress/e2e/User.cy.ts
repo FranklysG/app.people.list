@@ -1,4 +1,4 @@
-describe("User can create new company", () => {
+describe("Run tests to users", () => {
   it("user can create new", () => {
     const user = {
       name: 'Claudio Ferreira Belo',
