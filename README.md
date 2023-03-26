@@ -15,7 +15,13 @@ yarn && yarn dev
 yarn test
 ```
 
-#### Obs: 
+#### Obvious remarks:
+- It is highly necessary that both the backend and the frontend are running!
+
+##### A Tip
+- To make it easier, I like to leave a project running in each terminal, so we have the free test editor
+
+#### Conclusion: 
 - The application was developed using NextJS with Tailwindcss for styling and animation
 - The `react-toastfy` library was used to give the user responses, such as success and error
 - The tests were done using the `cypress` library
