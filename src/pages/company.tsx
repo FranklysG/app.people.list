@@ -84,6 +84,7 @@ export default function Company() {
               Nome
             </Label>
             <Input
+              data-cy="input-company-name"
               type="text"
               name="name"
               id="name"
@@ -98,6 +99,7 @@ export default function Company() {
               CPNJ
             </Label>
             <Input
+              data-cy="input-company-doc"
               type="text"
               name="doc"
               id="doc"
@@ -112,6 +114,7 @@ export default function Company() {
               Endereço
             </Label>
             <Input
+              data-cy="input-company-address"
               type="text"
               name="address"
               id="address"
@@ -121,7 +124,7 @@ export default function Company() {
             />
           </div>
         </div>
-        <Button>Enviar Formulário</Button>
+        <Button id="button-company-confirm-form">Enviar Formulário</Button>
       </form>
     </div>
   );

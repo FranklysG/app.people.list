@@ -45,7 +45,6 @@ export default function User() {
 
   const submitForm = useCallback(
     async (event: any) => {
-      
       event.preventDefault();
       setOpenPanel(!openPanel);
 
@@ -157,7 +156,7 @@ export default function User() {
             />
           </div>
         </div>
-        <Button>Enviar Formulário</Button>
+        <Button id="button-user-confirm-form">Enviar Formulário</Button>
       </form>
     </div>
   );

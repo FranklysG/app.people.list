@@ -6,6 +6,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { MagnifyingGlass, TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
+import Modal from "../../components/modal";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useUser } from "../../hooks/useUser";
 

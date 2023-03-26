@@ -108,6 +108,7 @@ export default function Dashboard() {
                   </Select>
                   <button
                     type="button"
+                    data-cy="button-open-panel-user"
                     className="flex items-center justify-center rounded-full bg-pink-600 p-2 text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     onClick={() => {
                       setCurrentUuidUser("");
@@ -121,6 +122,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     type="button"
+                    data-cy="button-open-panel-company"
                     className="flex items-center justify-center rounded-full bg-pink-600 p-2 text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     onClick={() => {
                       setCurrentUuidCompany("");
