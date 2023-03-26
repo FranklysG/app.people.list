@@ -14,7 +14,7 @@ export default function Company() {
 
   const [name, setName] = useState<string>("");
   const [doc, setDoc] = useState<string>("");
-  const [adrress, setAdrress] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
 
   const [status, setStatus] = useState<string>("");
   const [errors, setErrors] = useState([]);
@@ -26,7 +26,7 @@ export default function Company() {
         .map((item) => {
           setName(item.name);
           setDoc(item.doc);
-          setAdrress(item.adrress);
+          setAddress(item.address);
         });
     }
   }, [currentUuid]);
@@ -35,31 +35,36 @@ export default function Company() {
     errors.length > 0 && errors.map((error) => toast.error(error));
   }, [errors]);
 
+  useEffect(() => {
+    status && toast.success(status);
+  }, [status]);
+
   const submitForm = useCallback(
     async (event: any) => {
       event.preventDefault();
+      setOpenPanel(!openPanel);
 
       if (currentUuid !== "") {
-        update({
+        await update({
           uuid: currentUuid,
           name,
           doc,
-          adrress,
+          address,
           setErrors,
           setStatus,
         });
         return;
       }
 
-      create({
+      await create({
         name,
         doc,
-        adrress,
+        address,
         setErrors,
         setStatus,
       });
     },
-    [name, doc, adrress, setStatus, setErrors]
+    [name, doc, address, setStatus, setErrors]
   );
 
   return (
@@ -82,6 +87,7 @@ export default function Company() {
               type="text"
               name="name"
               id="name"
+              required
               value={name ?? ""}
               handleOnChange={(value) => setName(value)}
               autoComplete="given-name"
@@ -95,6 +101,7 @@ export default function Company() {
               type="text"
               name="doc"
               id="doc"
+              required
               value={doc ?? ""}
               handleOnChange={(value) => setDoc(value)}
               autoComplete="given-doc"
@@ -106,21 +113,15 @@ export default function Company() {
             </Label>
             <Input
               type="text"
-              name="adrress"
-              id="adrress"
-              value={adrress ?? ""}
-              handleOnChange={(value) => setAdrress(value)}
+              name="address"
+              id="address"
+              value={address ?? ""}
+              handleOnChange={(value) => setAddress(value)}
               autoComplete="tel"
             />
           </div>
         </div>
-        <Button
-          handleOnClick={() => {
-            setOpenPanel(!openPanel);
-          }}
-        >
-          Enviar Formulário
-        </Button>
+        <Button>Enviar Formulário</Button>
       </form>
     </div>
   );

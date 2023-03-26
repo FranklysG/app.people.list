@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { useGlobal } from "../hooks/useGlobal";
+import { useUser } from "../hooks/useUser";
 
 import Button from "../components/button";
 import Input from "../components/input";
 import Label from "../components/label";
-import { useUser } from "../hooks/useUser";
 
 export default function User() {
   const { openPanel, setOpenPanel } = useGlobal();
@@ -39,12 +39,18 @@ export default function User() {
     errors.length > 0 && errors.map((error) => toast.error(error));
   }, [errors]);
 
+  useEffect(() => {
+    status && toast.success(status);
+  }, [status]);
+
   const submitForm = useCallback(
     async (event: any) => {
+      
       event.preventDefault();
+      setOpenPanel(!openPanel);
 
       if (currentUuid !== "") {
-        update({
+        await update({
           uuid: currentUuid,
           name,
           email,
@@ -57,7 +63,7 @@ export default function User() {
         return;
       }
 
-      create({
+      await create({
         name,
         email,
         phone,
@@ -90,6 +96,7 @@ export default function User() {
               type="text"
               name="name"
               id="name"
+              required
               value={name ?? ""}
               handleOnChange={(value) => setName(value)}
               autoComplete="given-name"
@@ -103,6 +110,7 @@ export default function User() {
               type="email"
               name="email"
               id="email"
+              required
               value={email ?? ""}
               handleOnChange={(value) => setEmail(value)}
               autoComplete="given-email"
@@ -116,6 +124,7 @@ export default function User() {
               type="text"
               name="phone"
               id="phone"
+              required
               value={phone ?? ""}
               handleOnChange={(value) => setPhone(value)}
               autoComplete="tel"
@@ -148,13 +157,7 @@ export default function User() {
             />
           </div>
         </div>
-        <Button
-          handleOnClick={() => {
-            setOpenPanel(!openPanel);
-          }}
-        >
-          Enviar Formulário
-        </Button>
+        <Button>Enviar Formulário</Button>
       </form>
     </div>
   );

@@ -16,6 +16,7 @@ type UserProps = {
   update: ({ setErrors, setStatus, ...props }: any) => void;
   create: ({ setErrors, setStatus, ...props }: any) => void;
   eliminate: ({ setErrors, setStatus, ...props }: any) => void;
+  show: ({ setErrors, setStatus, ...props }: any) => void;
   currentUuid: string;
   setCurrentUuid: (data: string) => void;
 };
@@ -30,9 +31,9 @@ function UserProvider({ children }: UserProviderProps) {
   const [users, setUsers] = useState<UserType[]>();
   const [currentUuid, setCurrentUuid] = useState<string>("");
 
-  const show = useCallback(async () => {
+  const show = useCallback(async ({ setErrors, setStatus, ...props }: any) => {
     await axios
-      .get("/api/users")
+      .get(`/api/users?search=${props.search ?? ''}`)
       .then((res) => res.data.data)
       .then((data) => {
         setUsers(data);
@@ -50,7 +51,7 @@ function UserProvider({ children }: UserProviderProps) {
 
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show('');
         })
 
         .catch((error) => {
@@ -67,12 +68,12 @@ function UserProvider({ children }: UserProviderProps) {
     async ({ setErrors, setStatus, ...props }: any) => {
       setErrors([]);
       setStatus(null);
-
+      
       await axios
         .post("/api/users", props)
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show("");
         })
         .catch((error) => {
           setErrors(["Tente novamente mais tarde :)"]);
@@ -97,10 +98,10 @@ function UserProvider({ children }: UserProviderProps) {
         })
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show('');
         })
         .catch((error) => {
-          setErrors('Esse usuario tem companias relacionadas');
+          setErrors("Esse usuario tem companias relacionadas");
           if (error.response.status !== 422) {
             console.log(error);
             return;
@@ -128,6 +129,7 @@ function UserProvider({ children }: UserProviderProps) {
     update,
     create,
     eliminate,
+    show,
     currentUuid,
     setCurrentUuid,
   };

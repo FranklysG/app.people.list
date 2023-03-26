@@ -111,7 +111,6 @@ export default function Dashboard() {
                     className="flex items-center justify-center rounded-full bg-pink-600 p-2 text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     onClick={() => {
                       setCurrentUuidUser("");
-                      setCurrentUuidCompany("");
                       setIsCompany(true);
                       setOpenPanel(!openPanel);
                     }}
@@ -124,7 +123,6 @@ export default function Dashboard() {
                     type="button"
                     className="flex items-center justify-center rounded-full bg-pink-600 p-2 text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     onClick={() => {
-                      setCurrentUuidUser("");
                       setCurrentUuidCompany("");
                       setIsCompany(false);
                       setOpenPanel(!openPanel);

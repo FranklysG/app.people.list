@@ -15,6 +15,7 @@ type CompanyProps = {
   update: ({ setErrors, setStatus, ...props }: any) => void;
   create: ({ setErrors, setStatus, ...props }: any) => void;
   eliminate: ({ setErrors, setStatus, ...props }: any) => void;
+  show: ({ setErrors, setStatus, ...props }: any) => void;
   currentUuid: string;
   setCurrentUuid: (data: string) => void;
 };
@@ -29,9 +30,9 @@ function CompanyProvider({ children }: CompanyProviderProps) {
   const [company, setCompany] = useState<CompanyType[]>();
   const [currentUuid, setCurrentUuid] = useState<string>("");
 
-  const show = useCallback(async () => {
+  const show = useCallback(async ({ setErrors, setStatus, ...props }: any) => {
     await axios
-      .get("/api/company")
+      .get(`/api/company?search=${props.search ?? ''}`)
       .then((res) => res.data.data)
       .then((data) => {
         setCompany(data);
@@ -46,10 +47,9 @@ function CompanyProvider({ children }: CompanyProviderProps) {
 
       await axios
         .put("/api/company", props)
-
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show("");
         })
 
         .catch((error) => {
@@ -71,7 +71,7 @@ function CompanyProvider({ children }: CompanyProviderProps) {
         .post("/api/company", props)
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show("");
         })
         .catch((error) => {
           setErrors(["Tente novamente mais tarde :)"]);
@@ -96,10 +96,10 @@ function CompanyProvider({ children }: CompanyProviderProps) {
         })
         .then((response) => {
           setStatus(response.data.message);
-          show();
+          show("");
         })
         .catch((error) => {
-          setErrors('Esse usuario tem companias relacionadas');
+          setErrors("Esse usuario tem companias relacionadas");
           if (error.response.status !== 422) {
             console.log(error);
             return;
@@ -127,6 +127,7 @@ function CompanyProvider({ children }: CompanyProviderProps) {
     update,
     create,
     eliminate,
+    show,
     currentUuid,
     setCurrentUuid,
   };

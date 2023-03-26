@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import { Bars3CenterLeftIcon, BellIcon } from '@heroicons/react/24/outline'
+import { Bars3CenterLeftIcon, BellIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { classNames } from '../../utils'
 import { useGlobal } from '../../hooks/useGlobal'
@@ -22,21 +22,19 @@ export default function Navbar() {
       <div className="flex flex-1 justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex flex-1">
           <form className="flex w-full md:ml-0" action="#" method="GET">
-            <label htmlFor="search-field" className="sr-only">
-              Search
-            </label>
             <div className="relative w-full text-gray-400 focus-within:text-gray-600">
               <div
                 className="pointer-events-none absolute inset-y-0 left-0 flex items-center"
                 aria-hidden="true"
               >
-                <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
+                <CheckBadgeIcon className="h-5 w-5" aria-hidden="true" />
               </div>
               <input
                 id="search-field"
                 name="search-field"
+                disabled
                 className="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                placeholder="Buscar por pessoa ou empresa"
+                placeholder="Somos apenas o que temos"
                 type="search"
               />
             </div>

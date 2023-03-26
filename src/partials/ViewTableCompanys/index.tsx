@@ -1,4 +1,4 @@
-import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
+import { ArrowTrendingUpIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useCallback, useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -9,8 +9,15 @@ const lines = ["", "", "", "", "", ""];
 
 export default function ViewTableCompanys() {
   const { openPanel, setOpenPanel } = useGlobal();
-  const { company, eliminate, setCurrentUuid, currentUuid } = useCompany();
+  const {
+    company,
+    show,
+    eliminate,
+    setCurrentUuid,
+    currentUuid,
+  } = useCompany();
   const [load, setLoad] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
 
   const [status, setStatus] = useState<string>("");
   const [errors, setErrors] = useState([]);
@@ -34,8 +41,38 @@ export default function ViewTableCompanys() {
     setLoad(false);
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await show({
+        search,
+        setErrors,
+        setStatus,
+      });
+    })();
+  }, [search]);
+
   return (
     <div className="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
+      <div className="flex flex-1">
+        <form className="px-3 flex w-full ml-2 md:ml-0" action="#" method="GET">
+          <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 flex items-center"
+              aria-hidden="true"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <input
+              id="search-field"
+              name="search-field"
+              className="block h-full w-full border-transparent py-4 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+              placeholder="Busque por qualquer campos existente na tabela"
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </form>
+      </div>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -57,7 +94,7 @@ export default function ViewTableCompanys() {
             >
               Endereço
             </th>
-            
+
             <th
               className="bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
               scope="col"
@@ -91,10 +128,10 @@ export default function ViewTableCompanys() {
                   </td>
                   <td className="max-w-lg whitespace-nowrap px-6 py-4 text-sm text-gray-900">
                     <p className="truncate text-gray-500 group-hover:text-gray-900">
-                      {item.adrress}
+                      {item.address}
                     </p>
                   </td>
-                  
+
                   <td className="flex gap-2 items-center whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                     <button
                       onClick={() => {

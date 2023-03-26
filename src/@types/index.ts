@@ -13,5 +13,5 @@ export interface CompanyType {
   uuid: string
   name: string
   doc: string
-  adrress: string
+  address: string
 }

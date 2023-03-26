@@ -1,6 +1,10 @@
-import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowTrendingUpIcon,
+  CheckBadgeIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { useCallback, useEffect, useState } from "react";
-import { TailSpin } from "react-loader-spinner";
+import { MagnifyingGlass, TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useUser } from "../../hooks/useUser";
@@ -9,8 +13,9 @@ const lines = ["", "", "", "", "", ""];
 
 export default function ViewTableUsers() {
   const { openPanel, setOpenPanel } = useGlobal();
-  const { users, eliminate, setCurrentUuid, currentUuid } = useUser();
+  const { users, show, eliminate, setCurrentUuid, currentUuid } = useUser();
   const [load, setLoad] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
 
   const [status, setStatus] = useState<string>("");
   const [errors, setErrors] = useState([]);
@@ -34,8 +39,38 @@ export default function ViewTableUsers() {
     setLoad(false);
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await show({
+        search,
+        setErrors,
+        setStatus,
+      });
+    })();
+  }, [search]);
+
   return (
     <div className="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
+      <div className="flex flex-1">
+        <form className="px-3 flex w-full ml-2 md:ml-0" action="#" method="GET">
+          <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 flex items-center"
+              aria-hidden="true"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <input
+              id="search-field"
+              name="search-field"
+              className="block h-full w-full border-transparent py-4 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+              placeholder="Busque por qualquer campos existente na tabela"
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </form>
+      </div>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
